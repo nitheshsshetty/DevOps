@@ -1,15 +1,10 @@
+  
 The "Docker-compose.yml" file is the configuration file which contains all the specifics regarding the Jenkins services
 like port ,container name image name
 also later we had created an centos server for which we had created sperate dockerfile which again contains the contains all the configuration of the centos server and later we have
 linked it with the docker compose file whihc contains the cotainer ,image names
 both the jenkins and centos server are within the same network which is made possible using :net for both the netowrk parameters
 
-
-
-=========
-Step1: create image
-Step2: create container
-==========
 
 Commands
 
