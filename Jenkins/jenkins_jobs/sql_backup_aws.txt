@@ -1,0 +1,17 @@
+#!bin/bash
+
+DATE=$(date +”%H-%M-%S”)
+DB_HOST=$1
+DB_PASSWD=$2
+DB_NAME=$3
+AWS_PASSWRD=$4
+BUCKETNAME=$5
+BUCKETFNAME=db_$DATE.sql
+
+
+mysqldump -u root -h $DB_HOST -p$DB_PASSWD $DB_NAME > /tmp/$BUCKETFNAME
+
+export AWS_ACCESS_KEY_ID=$6
+export AWS_SECRET_ACCESS_KEY=$AWS_PASSWRD
+
+aws s3 cp /tmp/$BUCKETFNAME s3://$BUCKETNAME/$BUCKETFNAME
