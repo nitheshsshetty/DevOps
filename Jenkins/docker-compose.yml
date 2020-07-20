@@ -2,7 +2,10 @@ version: '3'
 services:
   jenkins:
     container_name: jenkins
-    image: jenkins/jenkins
+    image: jenkins/jenkins #intially
+    image: jenkins-ansible #later ansible installed within jenkins via new docker file
+    build:
+      context: jenkins-ansible #new folder created cosist new dockerfile which installs ansible within jenkins
     ports:
       - "8080:8080"
     volumes:

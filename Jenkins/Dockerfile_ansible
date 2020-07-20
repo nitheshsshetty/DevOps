@@ -1,0 +1,13 @@
+
+FROM jenkins/jenkins
+
+#getting into root user mode
+USER root
+
+#installation of ansible via pip
+RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python get-pip.py && \
+    pip install ansible
+
+#switching back to jenkins user
+USER jenkins
