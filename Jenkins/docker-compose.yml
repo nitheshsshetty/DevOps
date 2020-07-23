@@ -2,7 +2,6 @@ version: '3'
 services:
   jenkins:
     container_name: jenkins
-    image: jenkins/jenkins #intially
     image: jenkins-ansible #later ansible installed within jenkins via new docker file
     build:
       context: jenkins-ansible #new folder created cosist new dockerfile which installs ansible within jenkins
@@ -19,5 +18,24 @@ services:
      context: centos
     networks:
       - net
+  db_host:
+    container_name: db
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - "$PWD/db_data:/var/lib/mysql"
+    networks:
+      - net
+  web:
+    container_name: web
+    image: ansible-web
+    build:
+      context: jenkins-ansible/project/web
+    ports:
+      - "80:80"
+    networks:
+      - net
+
 networks:
   net:
