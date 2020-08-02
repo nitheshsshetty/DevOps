@@ -1,10 +1,10 @@
 version: '3'
-services:
+services: 
   jenkins:
     container_name: jenkins
-    image: jenkins-ansible #later ansible installed within jenkins via new docker file
+    image: jenkins-ansible
     build:
-      context: jenkins-ansible #new folder created cosist new dockerfile which installs ansible within jenkins
+      context: jenkins-ansible
     ports:
       - "8080:8080"
     volumes:
@@ -15,7 +15,9 @@ services:
     container_name: remote-host
     image: remote-host
     build:
-     context: centos
+      context: centos
+    volumes:
+      - "$PWD/jjobs_backups/backup:/tmp/backup"
     networks:
       - net
   db_host:
@@ -36,6 +38,18 @@ services:
       - "80:80"
     networks:
       - net
-
-networks:
+  git:
+    container_name: gitserver
+    image: 'gitlab/gitlab-ee:latest'
+    hostname: 'gitlab.example.com'
+    ports:
+      - '8090:80'
+    volumes:
+      - '$PWD/gitlab:/etc/gitlab'
+      - '$PWD/gitlab:/var/log/gitlab'
+      - '$PWD/gitlab:/var/opt/gitlab'
+    networks:
+      - net
+networks: 
   net:
+
